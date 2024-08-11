@@ -2,59 +2,111 @@ function getComputerChoice(){
     return Math.floor(Math.random() * 3);
 }
 
-function getHumanChoice(){
-    let input = prompt("Please Choose Rock, Paper or Scissors")
-    return change(input)
-}
-
-function change(input){
-    let choice = input.toLowerCase()
-    if (choice == "rock"){
+function getHumanChoice(choices){
+    let input = choices
+    if (input == "rock"){
         return 0;
-    } else if (choice == "paper"){
+    } else if (input == "paper"){
         return 1;
-    } else if (choice == "scissors"){
+    } else if (input == "scissors"){
         return 2;
-    } else {
-        alert("Please Input The Right Choice!!")
-        return getHumanChoice();
     }
 }
 
 let humanScore = 0
 let computerScore = 0
+
 const choices = ["Rock", "Paper", "Scissors"]
+const rockBtn = document.getElementById("rockButton")
+const paperBtn = document.getElementById("paperButton")
+const scissorsBtn = document.getElementById("scissorsButton")
+const restartBtn = document.getElementById("restartButton")
+const firstMsg = document.getElementById("chooseMessage")
+const humanSelect = document.getElementById("humanChoice")
+const compSelect = document.getElementById("computerChoice")
+const humanScoreParam = document.getElementById("humanScore")
+const compScoreParam = document.getElementById("computerScore")
+
+rockBtn.addEventListener('click', () => playGame('rock'))
+paperBtn.addEventListener('click', () => playGame('paper'))
+scissorsBtn.addEventListener('click', () => playGame('scissors'))
+
+restartBtn.style.display = `none`
+restartBtn.addEventListener('click', () => restartGame())
 
 function playRound(HumanChoice, ComputerChoice){
+    humanSign(HumanChoice)
+    compSign(ComputerChoice)
     if (HumanChoice == ComputerChoice){
-        alert(`You choose ${choices[HumanChoice]} and your enemy choose ${choices[ComputerChoice]}, So it is a Tie`)
+        firstMsg.textContent = `It is a Tie`
     } else if (
         (HumanChoice == 0 && ComputerChoice == 2) ||
         (HumanChoice == 1 && ComputerChoice == 0) ||
         (HumanChoice == 2 && ComputerChoice == 1)) {
-        alert("You Win This Round !")
+        firstMsg.textContent = "You Win This Round"
         humanScore += 1
+        humanScoreParam.textContent = `Player : ${humanScore}`
     } else {
-        alert("You Lose This Round :(")
+        firstMsg.textContent = "You Lose This Round"
         computerScore += 1
+        compScoreParam.textContent = `Computer : ${computerScore}`
     }
 }
 
-function playGame(){
-    while (humanScore < 5 && computerScore < 5){
-        const HumanChoice = getHumanChoice()
-        const ComputerChoice = getComputerChoice()
-        playRound(HumanChoice, ComputerChoice)
-        alert(`Current Score : You: ${humanScore}, Computer: ${computerScore}`)
-    }
+function playGame(choices){
+    const HumanChoice = getHumanChoice(choices)
+    const ComputerChoice = getComputerChoice()
+    playRound(HumanChoice, ComputerChoice)
 
     if (humanScore == 5){
-        alert("You Win!")
+        firstMsg.textContent = "You Win!"
+        rockBtn.style.display = `none`
+        paperBtn.style.display = `none`
+        scissorsBtn.style.display = `none`
+        restartBtn.style.display = `block`
     } else if (computerScore == 5){
-        alert("You Lose, Better luck next time !!")
+        firstMsg.textContent = "You Lose, Better luck next time !!"
+        rockBtn.style.display = `none`
+        paperBtn.style.display = `none`
+        scissorsBtn.style.display = `none`
+        restartBtn.style.display = `block`
     }
 }
 
-playGame()
+function compSign(computerChoice){
+    if (computerChoice == 0){
+        compSelect.textContent = "✊";
+    } else if (computerChoice == 1){
+        compSelect.textContent = "✋";
+    } else if (computerChoice == 2){
+        compSelect.textContent = "✌️";
+    }
+}
 
+function humanSign(humanChoice){
+    if (humanChoice == 0){
+        humanSelect.textContent = "✊";
+    } else if (humanChoice == 1){
+        humanSelect.textContent = "✋";
+    } else if (humanChoice == 2){
+        humanSelect.textContent = "✌️";
+    }
+}
+
+function restartGame(){
+    humanScore = 0
+    computerScore = 0
+
+    compSelect.textContent = "❔"
+    humanSelect.textContent = "❔"
+
+    firstMsg.textContent = "Who score 5 points first is the winner!"
+    humanScoreParam.textContent = `Player : ${humanScore}`
+    compScoreParam.textContent = `Computer : ${computerScore}`
+
+    restartBtn.style.display = `none`
+    rockBtn.style.display = `inline-block`
+    paperBtn.style.display = `inline-block`
+    scissorsBtn.style.display = `inline-block`
+}
 

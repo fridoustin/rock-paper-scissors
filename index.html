@@ -4,10 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors Game</title>
+    <link rel="icon" href="logo.png">
     <link rel="Stylesheet" href="style.css">
-    
 </head>
 <body>
+    
+    <div class="header">
+        <h1 class="title">ROCK PAPER SCISSORS</h1>
+    </div>
+    <div class="scoreMsg">
+        <h2 class="chooseMsg" id="chooseMessage">Who score 5 points first is the winner!</h2>
+        <div class="scoreBox">
+            <div class="scoreBoxHum">
+                <div class="humanChoice" id="humanChoice">❔</div>
+                <h2 class="humanScore" id="humanScore">Player : 0</h2>
+            </div>
+            <div class="scoreBoxComp">
+                <div class="computerChoice" id="computerChoice">❔</div>
+                <h2 class="computerScore" id="computerScore">Computer : 0</h2>
+            </div>
+        </div>
+        
+    </div>
+    <div class="main">
+        <button class="buttonChoice" id="rockButton">✊</button>
+        <button class="buttonChoice" id="paperButton">✋</button>
+        <button class="buttonChoice" id="scissorsButton">✌️</button>
+        <button class="resButtonChoice" id="restartButton">Restart</button>
+    </div>
+    <div class="footer">
+        <p>Copyright ©
+            <script>
+                document.write(new Date().getFullYear())
+            </script>
+            fridoustin
+        </p>
+    </div>
     <script src="main.js"></script>
 </body>
 </html>
